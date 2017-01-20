@@ -22,6 +22,8 @@ services:
       dockerfile: Dockerfile-service
     volumes:
       - ./service-envoy.json:/etc/service-envoy.json
+      - ./key.pem:/etc/key.pem
+      - ./cert.pem:/etc/cert.pem
     networks:
       envoymesh:
         aliases:
@@ -37,6 +39,8 @@ services:
       dockerfile: Dockerfile-service
     volumes:
       - ./service-envoy.json:/etc/service-envoy.json
+      - ./key.pem:/etc/key.pem
+      - ./cert.pem:/etc/cert.pem
     networks:
       envoymesh:
         aliases:

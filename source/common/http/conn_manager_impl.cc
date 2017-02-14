@@ -816,7 +816,13 @@ uint64_t ConnectionManagerImpl::ActiveStreamFilterBase::connectionId() {
   return parent_.connectionId();
 }
 
+<<<<<<< HEAD
 Ssl::Connection* ConnectionManagerImpl::ActiveStreamFilterBase::ssl() { return parent_.ssl(); }
+=======
+Ssl::Connection* ConnectionManagerImpl::ActiveStreamFilterBase::ssl() {
+  return parent_.ssl();
+}
+>>>>>>> 1286e404... Expose Ssl::Connection to Http filter.
 
 Event::Dispatcher& ConnectionManagerImpl::ActiveStreamFilterBase::dispatcher() {
   return parent_.connection_manager_.read_callbacks_->connection().dispatcher();

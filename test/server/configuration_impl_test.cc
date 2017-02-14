@@ -78,7 +78,7 @@ TEST(ConfigurationImplTest, EmptyFilter) {
   {
     "listeners" : [
       {
-        "port" : 1234,
+        "address": "tcp://127.0.0.1:1234",
         "filters": []
       }
     ],
@@ -102,7 +102,7 @@ TEST(ConfigurationImplTest, DefaultListenerPerConnectionBufferLimit) {
   {
     "listeners" : [
       {
-        "port" : 1234,
+        "address": "tcp://127.0.0.1:1234",
         "filters": []
       }
     ],
@@ -126,7 +126,7 @@ TEST(ConfigurationImplTest, SetListenerPerConnectionBufferLimit) {
   {
     "listeners" : [
       {
-        "port" : 1234,
+        "address": "tcp://127.0.0.1:1234",
         "filters": [],
         "per_connection_buffer_limit_bytes": 8192
       }
@@ -151,7 +151,7 @@ TEST(ConfigurationImplTest, BadListenerConfig) {
   {
     "listeners" : [
       {
-        "port" : 1234,
+        "address": "tcp://127.0.0.1:1234",
         "filters": [],
         "test": "a"
       }
@@ -174,7 +174,7 @@ TEST(ConfigurationImplTest, BadFilterConfig) {
   {
     "listeners" : [
       {
-        "port" : 1234,
+        "address": "tcp://127.0.0.1:1234",
         "filters": [
           {
             "type" : "type",
@@ -202,7 +202,7 @@ TEST(ConfigurationImplTest, ServiceClusterNotSetWhenLSTracing) {
   {
     "listeners" : [
       {
-        "port" : 1234,
+        "address": "tcp://127.0.0.1:1234",
         "filters": []
       }
     ],
@@ -233,7 +233,7 @@ TEST(ConfigurationImplTest, UnsupportedDriverType) {
   {
     "listeners" : [
       {
-        "port" : 1234,
+        "address": "tcp://127.0.0.1:1234",
         "filters": []
       }
     ],

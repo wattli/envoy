@@ -34,6 +34,47 @@
           }
         }
       ]
+    },
+    {
+      "port": 443,
+      "ssl_context": {
+        "alpn_protocols": "h2,http/1.1",
+        "alt_alpn_protocols": "http/1.1",
+	"cert_chain_file": "/etc/cert.pem",
+        "private_key_file": "/etc/key.pem"
+      },
+      "filters": [
+        {
+          "type": "read",
+          "name": "http_connection_manager",
+          "config": {
+            "codec_type": "auto",
+            "stat_prefix": "ingress_http",
+            "route_config": {
+              "virtual_hosts": [
+                {
+                  "name": "service",
+                  "domains": ["*"],
+                  "routes": [
+                    {
+                      "timeout_ms": 0,
+                      "prefix": "/service",
+                      "cluster": "local_service2"
+                    }
+                  ]
+                }
+              ]
+            },
+            "filters": [
+              {
+                "type": "decoder",
+                "name": "router",
+                "config": {}
+              }
+            ]
+	  }
+	}
+      ]
     }
   ],
   "admin": {
@@ -52,8 +93,23 @@
             "url": "tcp://127.0.0.1:8080"
           }
         ]
+      },
+      {
+	"name": "local_service2",
+	"connect_timeout_ms": 1000,
+	"type": "strict_dns",
+	"lb_type": "round_robin",
+        "features": "http2",
+	"ssl_context": {
+	  "cert_chain_file": "/etc/cert.pem",
+          "private_key_file": "/etc/key.pem"
+	},
+        "hosts": [
+          {
+            "url": "tcp://127.0.0.1:443"
+          }
+        ]
       }
     ]
   }
 }
-

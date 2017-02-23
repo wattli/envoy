@@ -6,7 +6,6 @@
 #include "common/network/utility.h"
 
 #include "openssl/err.h"
-#include "openssl/x509v3.h"
 
 namespace Ssl {
 
@@ -223,20 +222,6 @@ std::string ConnectionImpl::uriSanPeerCertificate() {
 
   sk_GENERAL_NAME_pop_free(altnames, GENERAL_NAME_free);
   return result;
-}
-
-// TODO: see if we can pass something more meaningful than EMPTY_STRING as localAddress
-ClientConnectionImpl::ClientConnectionImpl(Event::DispatcherImpl& dispatcher, Context& ctx,
-                                           const std::string& url)
-    : ConnectionImpl(dispatcher, socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, 0), url, EMPTY_STRING,
-                     ctx, InitialState::Client) {}
-
-void ClientConnectionImpl::connect() {
-  Network::AddrInfoPtr addr_info =
-      Network::Utility::resolveTCP(Network::Utility::hostFromUrl(remote_address_),
-                                   Network::Utility::portFromUrl(remote_address_));
-  doConnect(addr_info->ai_addr, addr_info->ai_addrlen);
->>>>>>> Expose Ssl::Connection to Http filter.
 }
 
 ClientConnectionImpl::ClientConnectionImpl(Event::DispatcherImpl& dispatcher, Context& ctx,

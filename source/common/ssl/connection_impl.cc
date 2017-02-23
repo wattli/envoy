@@ -192,11 +192,7 @@ std::string ConnectionImpl::sha256PeerCertificateDigest() {
   return Hex::encode(computed_hash);
 }
 
-<<<<<<< HEAD
 std::string ConnectionImpl::uriSanPeerCertificate() {
-=======
-std::string ConnectionImpl::uriPeerCertificateSAN() {
->>>>>>> Expose Ssl::Connection to Http filter.
   X509Ptr cert = X509Ptr(SSL_get_peer_certificate(ssl_.get()));
   if (!cert) {
     return "";
@@ -209,7 +205,6 @@ std::string ConnectionImpl::uriPeerCertificateSAN() {
     return "";
   }
 
-<<<<<<< HEAD
   std::string result;
   int n = sk_GENERAL_NAME_num(altnames);
   if (n > 0) {
@@ -223,28 +218,11 @@ std::string ConnectionImpl::uriPeerCertificateSAN() {
     default:
       // Default to empty;
       break;
-=======
-  std::string result = "";
-  int n = sk_GENERAL_NAME_num(altnames);
-  if (n > 0) {
-    // We only take the first item in altnames.
-    GENERAL_NAME* altname = sk_GENERAL_NAME_value(altnames, 0);
-    switch (altname->type) {
-      case GEN_URI:
-        result.append(reinterpret_cast<const char*>(
-                          ASN1_STRING_data(altname->d.uniformResourceIdentifier)));
-        break;
-      default:
-        // Default to empty.
-        break;
->>>>>>> Expose Ssl::Connection to Http filter.
     }
   }
 
   sk_GENERAL_NAME_pop_free(altnames, GENERAL_NAME_free);
   return result;
-<<<<<<< HEAD
-=======
 }
 
 // TODO: see if we can pass something more meaningful than EMPTY_STRING as localAddress

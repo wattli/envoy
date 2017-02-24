@@ -223,7 +223,7 @@ std::string ConnectionImpl::uriSanPeerCertificate() {
   sk_GENERAL_NAME_pop_free(altnames, GENERAL_NAME_free);
   return result;
 }
-
+ 
 ClientConnectionImpl::ClientConnectionImpl(Event::DispatcherImpl& dispatcher, Context& ctx,
                                            Network::Address::InstancePtr address)
     : ConnectionImpl(dispatcher, address->socket(Network::Address::SocketType::Stream), address,

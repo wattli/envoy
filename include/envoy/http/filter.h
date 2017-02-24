@@ -5,6 +5,7 @@
 #include "envoy/http/codec.h"
 #include "envoy/http/header_map.h"
 #include "envoy/router/router.h"
+#include "envoy/ssl/connection.h"
 
 namespace Http {
 

@@ -16,7 +16,7 @@
 using testing::_;
 using testing::Invoke;
 
-namespace Ssl {
+namespace Ssl { 
 
 static void testUtil(std::string client_ctx_json, std::string server_ctx_json,
                      std::string expected_digest, std::string expected_uri) {

@@ -6,6 +6,7 @@
 #include "common/network/utility.h"
 
 #include "openssl/err.h"
+#include "openssl/x509v3.h"
 
 namespace Ssl {
 

@@ -63,7 +63,7 @@ public:
                       Network::ListenSocket& socket, bool bind_to_port, bool use_proxy_proto,
                       bool use_orig_dst) override;
 
-  Network::Listener* findListenerByPort(uint32_t port) override;
+  Network::Listener* findListenerByAddress(Network::Address::InstancePtr address) override;
 
   void closeListeners() override;
 

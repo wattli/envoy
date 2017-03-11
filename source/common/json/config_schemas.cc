@@ -34,7 +34,7 @@ const std::string Json::Schema::LISTENER_SCHEMA(R"EOF(
     },
     "type" : "object",
     "properties": {
-       "port": {"type": "number"},
+       "address": {"type": "string"},
        "filters" : {
          "type" : "array",
          "items": {"$ref" : "#/definitions/filters"}
@@ -49,7 +49,7 @@ const std::string Json::Schema::LISTENER_SCHEMA(R"EOF(
          "exclusiveMinimum" : true
        }
     },
-    "required": ["port", "filters"],
+    "required": ["address", "filters"],
     "additionalProperties": false
   }
   )EOF");

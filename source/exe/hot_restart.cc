@@ -14,7 +14,7 @@ namespace Server {
 
 // Increment this whenever there is a shared memory / RPC change that will prevent a hot restart
 // from working. Operations code can then cope with this and do a full restart.
-const uint64_t SharedMemory::VERSION = 4;
+const uint64_t SharedMemory::VERSION = 5;
 
 SharedMemory& SharedMemory::initialize(Options& options) {
   int flags = O_RDWR;
@@ -151,13 +151,13 @@ void HotRestartImpl::drainParentListeners() {
   sendMessage(parent_address_, rpc);
 }
 
-int HotRestartImpl::duplicateParentListenSocket(uint32_t port) {
+int HotRestartImpl::duplicateParentListenSocket(std::string address) {
   if (options_.restartEpoch() == 0) {
     return -1;
   }
 
   RpcGetListenSocketRequest rpc;
-  rpc.port_ = port;
+  memcpy(rpc.address_, address.c_str(), address.length() + 1);
   sendMessage(parent_address_, rpc);
   RpcGetListenSocketReply* reply =
       receiveTypedRpc<RpcGetListenSocketReply, RpcMessageType::GetListenSocketReply>();
@@ -264,7 +264,7 @@ void HotRestartImpl::sendMessage(sockaddr_un& address, RpcBase& rpc) {
 
 void HotRestartImpl::onGetListenSocket(RpcGetListenSocketRequest& rpc) {
   RpcGetListenSocketReply reply;
-  reply.fd_ = server_->getListenSocketFd(rpc.port_);
+  reply.fd_ = server_->getListenSocketFd(std::string(rpc.address_));
   if (reply.fd_ == -1) {
     // In this case there is no fd to duplicate so we just send a normal message.
     sendMessage(child_address_, reply);

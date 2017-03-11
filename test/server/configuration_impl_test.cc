@@ -126,7 +126,7 @@ TEST(ConfigurationImplTest, SetListenerPerConnectionBufferLimit) {
   {
     "listeners" : [
       {
-        "port" : 1234,
+        "address": "tcp://127.0.0.1:1234",
         "filters": [],
         "per_connection_buffer_limit_bytes": 8192
       }

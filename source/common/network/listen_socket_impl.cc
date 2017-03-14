@@ -20,7 +20,7 @@ void ListenSocketImpl::doBind() {
 
 TcpListenSocket::TcpListenSocket(std::string address, bool bind_to_port) {
   // TODO(mattklein123): IPv6 support.
-  local_address_.reset(Utility::resolveUrl(address));
+  local_address_ = Utility::resolveUrl(address);
   fd_ = local_address_->socket(Address::SocketType::Stream);
   RELEASE_ASSERT(fd_ != -1);
 
@@ -55,7 +55,7 @@ TcpListenSocket::TcpListenSocket(int fd, uint32_t port) {
 
 TcpListenSocket::TcpListenSocket(int fd, std::string address) {
   fd_ = fd;
-  local_address_.reset(Utility::resolveUrl(address));
+  local_address_ = Utility::resolveUrl(address);
 }
 
 UdsListenSocket::UdsListenSocket(const std::string& uds_path) {

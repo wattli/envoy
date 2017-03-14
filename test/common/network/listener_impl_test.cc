@@ -87,8 +87,7 @@ TEST(ListenerImplTest, UseOriginalDst) {
 
   Address::InstancePtr alt_address(new Address::Ipv4Instance("127.0.0.1", 10001));
   EXPECT_CALL(listener, getOriginalDst(_)).WillRepeatedly(Return(alt_address));
-  EXPECT_CALL(connection_handler,
-              findListenerByAddress(Utility::resolveUrl("tcp://127.0.0.1:10000")))
+  EXPECT_CALL(connection_handler, findListenerByAddress(alt_address))
       .WillRepeatedly(Return(&listenerDst));
 
   EXPECT_CALL(listener, newConnection(_, _, _)).Times(0);

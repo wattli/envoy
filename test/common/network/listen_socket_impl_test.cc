@@ -19,7 +19,7 @@ TEST(ListenSocket, All) {
   TcpListenSocket socket5(dup(socket1.fd()), 15000);
   EXPECT_EQ(15000U, socket5.localAddress()->ip()->port());
 
-  TcpListenSocket socket6(dup(socket1.fd()), "tcp://127.0.0.1:15000");
+  TcpListenSocket socket6(dup(socket1.fd()), std::string("tcp://127.0.0.1:15000"));
   EXPECT_EQ("127.0.0.1:15000", socket6.localAddress()->asString());
 }
 

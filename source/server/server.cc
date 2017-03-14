@@ -16,6 +16,7 @@
 #include "common/common/version.h"
 #include "common/json/config_schemas.h"
 #include "common/memory/stats.h"
+#include "common/network/utility.h"
 #include "common/runtime/runtime_impl.h"
 #include "common/stats/statsd.h"
 
@@ -135,7 +136,7 @@ void InstanceImpl::flushStats() {
 }
 
 int InstanceImpl::getListenSocketFd(std::string address) {
-  Address::InstancePtr addr = Utility::resolveUrl(address);
+  Network::Address::InstancePtr addr = Network::Utility::resolveUrl(address);
   for (const auto& entry : socket_map_) {
     // TODO(mattklein123): UDS listeners.
     if (entry.second->localAddress()->asString() == addr->asString()) {

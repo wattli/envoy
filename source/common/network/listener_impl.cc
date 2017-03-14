@@ -1,5 +1,6 @@
 #include "listener_impl.h"
 #include "utility.h"
+#include "stdio.h"
 
 #include "envoy/common/exception.h"
 #include "envoy/network/connection_handler.h"

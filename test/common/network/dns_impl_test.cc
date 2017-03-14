@@ -40,7 +40,7 @@ private:
   struct ReadFilter : public Network::ReadFilterBaseImpl {
     ReadFilter(TestDnsServerQuery& parent) : parent_(parent) {}
 
-    // Network::ReadFilter'
+    // Network::ReadFilter
     Network::FilterStatus onData(Buffer::Instance& data) override {
       onDataInternal(data);
       return Network::FilterStatus::StopIteration;

@@ -170,6 +170,9 @@ int HotRestartImpl::duplicateParentListenSocket(std::string address) {
   }
 
   RpcGetListenSocketRequest rpc;
+  if (address.length() >= 256) {
+    return -1;
+  }
   memcpy(rpc.address_, address.c_str(), address.length() + 1);
   sendMessage(parent_address_, rpc);
   RpcGetListenSocketReply* reply =

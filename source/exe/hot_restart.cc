@@ -14,7 +14,7 @@ namespace Server {
 
 // Increment this whenever there is a shared memory / RPC change that will prevent a hot restart
 // from working. Operations code can then cope with this and do a full restart.
-const uint64_t SharedMemory::VERSION = 7;
+const uint64_t SharedMemory::VERSION = 8;
 
 SharedMemory& SharedMemory::initialize(Options& options) {
   int flags = O_RDWR;
@@ -170,6 +170,9 @@ int HotRestartImpl::duplicateParentListenSocket(std::string address) {
   }
 
   RpcGetListenSocketRequest rpc;
+  if (address.length() >= 256) {
+    return -1;
+  }
   memcpy(rpc.address_, address.c_str(), address.length() + 1);
   sendMessage(parent_address_, rpc);
   RpcGetListenSocketReply* reply =

@@ -18,7 +18,7 @@ void ListenSocketImpl::doBind() {
   }
 }
 
-TcpListenSocket::TcpListenSocket(std::string address, bool bind_to_port) {
+TcpListenSocket::TcpListenSocket(const std::string& address, bool bind_to_port) {
   // TODO(mattklein123): IPv6 support.
   local_address_ = Utility::resolveUrl(address);
   fd_ = local_address_->socket(Address::SocketType::Stream);
@@ -53,7 +53,7 @@ TcpListenSocket::TcpListenSocket(int fd, uint32_t port) {
   local_address_.reset(new Address::Ipv4Instance(port));
 }
 
-TcpListenSocket::TcpListenSocket(int fd, std::string address) {
+TcpListenSocket::TcpListenSocket(int fd, const std::string& address) {
   fd_ = fd;
   local_address_ = Utility::resolveUrl(address);
 }

@@ -44,18 +44,19 @@ public:
 
   Network::ListenerPtr createListener(Network::ConnectionHandler& conn_handler,
                                       Network::ListenSocket& socket, Network::ListenerCallbacks& cb,
-                                      Stats::Scope& scope,
+                                      Stats::Store& stats_store,
                                       const Network::ListenerOptions& listener_options) override {
-    return Network::ListenerPtr{createListener_(conn_handler, socket, cb, scope, listener_options)};
+    return Network::ListenerPtr{
+        createListener_(conn_handler, socket, cb, stats_store, listener_options)};
   }
 
   Network::ListenerPtr
   createSslListener(Network::ConnectionHandler& conn_handler, Ssl::ServerContext& ssl_ctx,
                     Network::ListenSocket& socket, Network::ListenerCallbacks& cb,
-                    Stats::Scope& scope,
+                    Stats::Store& stats_store,
                     const Network::ListenerOptions& listener_options) override {
     return Network::ListenerPtr{
-        createSslListener_(conn_handler, ssl_ctx, socket, cb, scope, listener_options)};
+        createSslListener_(conn_handler, ssl_ctx, socket, cb, stats_store, listener_options)};
   }
 
   TimerPtr createTimer(TimerCb cb) override { return TimerPtr{createTimer_(cb)}; }
@@ -85,12 +86,12 @@ public:
   MOCK_METHOD5(createListener_,
                Network::Listener*(Network::ConnectionHandler& conn_handler,
                                   Network::ListenSocket& socket, Network::ListenerCallbacks& cb,
-                                  Stats::Scope& scope,
+                                  Stats::Store& stats_store,
                                   const Network::ListenerOptions& listener_options));
   MOCK_METHOD6(createSslListener_,
                Network::Listener*(Network::ConnectionHandler& conn_handler,
                                   Ssl::ServerContext& ssl_ctx, Network::ListenSocket& socket,
-                                  Network::ListenerCallbacks& cb, Stats::Scope& scope,
+                                  Network::ListenerCallbacks& cb, Stats::Store& stats_store,
                                   const Network::ListenerOptions& listener_options));
   MOCK_METHOD1(createTimer_, Timer*(TimerCb cb));
   MOCK_METHOD1(deferredDelete_, void(DeferredDeletablePtr& to_delete));

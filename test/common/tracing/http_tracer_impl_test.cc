@@ -617,7 +617,7 @@ TEST_F(LightStepDriverTest, SerializeAndDeserializeContext) {
   EXPECT_FALSE(injected_ctx.empty());
 
   // Context can be parsed fine.
-  lightstep::BinaryCarrier ctx;
+  lightstep::envoy::CarrierStruct ctx;
   std::string context = Base64::decode(injected_ctx);
   ctx.ParseFromString(context);
 

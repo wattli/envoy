@@ -222,10 +222,10 @@ bool FakeUpstream::createFilterChain(Network::Connection& connection) {
 
 void FakeUpstream::threadRoutine() {
   if (ssl_ctx_) {
-    handler_.addSslListener(*this, *ssl_ctx_, *socket_, stats_store_,
+    handler_.addSslListener(*this, *ssl_ctx_, *socket_,
                             Network::ListenerOptions::listenerOptionsWithBindToPort());
   } else {
-    handler_.addListener(*this, *socket_, stats_store_,
+    handler_.addListener(*this, *socket_,
                          Network::ListenerOptions::listenerOptionsWithBindToPort());
   }
 
